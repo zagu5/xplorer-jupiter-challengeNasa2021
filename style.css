@@ -1,0 +1,57 @@
+#root{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card-wrapper{
+    margin: 0 auto;
+    background-color: transparent;
+    width: 230px;
+    height: 270px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+.card{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* text-align: center; */
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+}
+  
+.face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+  
+  .front{
+    background-color: #bbb;
+    color: black;
+    text-align: center; 
+  }
+  
+  .back {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5,1fr);
+    /* grid-gap: 14px; */
+    text-align: center; 
+    background-color: #305c14;
+    color: white;
+    transform: rotateY(180deg);
+}
+  
+.avatar{
+    width: 100%;
+    height: 100%;
+}
+
+.avatar img{
+    width: 100%;
+    height: 100%;
+}

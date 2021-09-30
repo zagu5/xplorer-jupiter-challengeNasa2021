@@ -1,0 +1,19 @@
+{
+    "name": "spam--hackathon",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "test": "\u0016\u0016jest --coverage",
+        "start": "serve"
+    },
+    "keywords": [
+        "javascript"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "bootstrap": "^5.1.1",
+        "serve": "^12.0.1"
+    }
+}
