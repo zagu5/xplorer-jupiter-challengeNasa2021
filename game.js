@@ -3,7 +3,7 @@ kaboom({
     fullscreen: true,
     scale: 1.9,
     debug: true,
-    clearColor: [0, 0, 0, 1]
+    clearColor: [0,0,51]
   })
  
   //Speed identifiers
@@ -18,7 +18,7 @@ kaboom({
   let isJumping = true
   
   loadRoot('https://i.imgur.com/')
-  loadSprite('bg', 'D4GMuVE.png')
+  loadSprite('bg', 'qKona0S.png')
   loadSprite('sample', 'v93pgWa.png')
   loadSprite('sample1', 'NSsPkw0.png')
   loadSprite('sample2', 'KoSieLh.png')
@@ -32,24 +32,49 @@ kaboom({
   loadSprite('eddy', 'YEaSi0t.png')
   loadSprite('eddy1', 'JMqD5NC.png')
 
-  scene ("game", ({ level, score })=> {
-    layers(['bg', 'obj', 'ui'], 'obj')
+  loadSprite('bg1', 'rIdnjt2.png')
+  loadSprite('bonus-rock', 'W35gFkK.png')
+  loadSprite('volcano', 'oo1luMh.png')
+  loadSprite('move-rock', 'Gu9ddIK.png')
+  loadSprite('ground-io', 'vISj75M.png')
 
-    const map = [
+  scene ("game", ({ level, score })=> {
+    layers(['bg','obj', 'ui'], 'obj')
+
+    const maps = [
+    [
+      '                                                ',
+      '                                                ',
+      '                                                ',
+      '                                                ',
       '           °                                    ',
-      '           °                                    ',   
-      '           °                                    ',
-      '           °                                    ',
-      '          ===                                   ',
-      '                ===                             ',
-      '                           %  = %               ',
-      '                    %===                        ',  
-      '    *   % %                                |    ',
-      '                                          ==    ',
-      '                                        ==== +  ',
-      '          ^   -     ^     -    ^    - ======    ',
-      '================================================',
+      '          ===                   °               ',
+      '                ===             =               ',
+      '                             =     =            ',
+      '                      = %=                      ',  
+      '   *  %%                                    |   ',
+      '                                           ==   ',
+      '                                         ==== + ',
+      '          ^  -     ^-          ^     - ======   ',
+      '===========  ===================================',
+    ],
+    [
+      '                                                ',
+      '                                                ',
+      '                                                ',
+      '                                                ',
+      '           |                                    ',
+      '          !!!                                 ° ',
+      '                                            !!! ',
+      '                                                ',
+      '                                         !!!    ',  
+      '   !!! @ !                                      ',
+      '                          !!!!     !!@          ',
+      '                          !!!!                  ',
+      '            ~ ~          z!!!!         ~~     + ',
+      '!!!!!!!!!!!!! !!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!',
     ]
+  ] 
     
     const levelCfg = {
         width: 40,
@@ -66,16 +91,21 @@ kaboom({
         '-': [sprite('eddy1'), solid(), scale(0.55), 'eddy1'],
         '^': [sprite('evil-tornado'), solid(), 'dangerous'],
         '#': [sprite('antidote'), solid(), 'antidote', body()],
+        '!': [sprite('ground-io'), solid(), scale(0.6)],
+        'z': [sprite('move-rock'), solid(), scale(0.5), 'dangerous'],
+        '@': [sprite('bonus-rock'), solid(), scale(0.5), 'sample-surprise'],
+        '~': [sprite('volcano'), solid(), scale(0.5)],
+
     }
 
     add([
       sprite('bg'),
       layer('bg'),
-      pos(-305, 20),
 //     {width: width(100),height:height(100)}
     ])
 
-    const gameLevel = addLevel(map, levelCfg)
+    //const gameLevel = addLevel(map, levelCfg)
+    const gameLevel = addLevel(maps[level], levelCfg)
 
     const scoreLabel = add([
       text(score),
@@ -153,7 +183,7 @@ kaboom({
 
     player.collides('antidote', (a) => {
       destroy(a)
-      player.biggify(10)
+      player.biggify(20)
     })
 
     player.collides('sample', (s) => {
@@ -190,12 +220,13 @@ kaboom({
       camPos(player.pos)
       if(player.pos.y >= FALL_DEATH){
         go('lose', { score: scoreLabel.value})
-      }    })
+      }  
+    })
 
     player.collides('eddy',() => {
       keyPress('down', () => {
         go('game', {
-          level: (level + 1),
+          level: (level + 1) % maps.length,
           score: scoreLabel.value
         })
       })
