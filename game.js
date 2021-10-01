@@ -38,10 +38,14 @@
   loadSprite('move-rock', 'Gu9ddIK.png')
   loadSprite('ground-io', 'vISj75M.png')
   
-  loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
+ loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
+  // const music = play('OtherworldlyFoe', { volume:(0.8)})
+   
+  // music.pause();
+  // music.play();
 
   scene ("game", ({ level, score })=> {
-    layers(['bg','obj', 'ui'], 'obj')
+    layers(['bg','bg1','obj', 'ui'], 'obj')
 
     const maps = [
     [
@@ -99,12 +103,30 @@
         '~': [sprite('volcano'), solid(), scale(0.5)],
 
     }
+    //Background de acuerdo al nivel
+    if (level===0){
+      add(
+          [
+          sprite('bg'),
+          layer('bg'),
+        ])
+    }
+    if(level===1){
+      add(
+        [
+        sprite('bg1'),
+        layer('bg1'),
+      ])  
+    } 
+// else{
+//   add(
+//     [
+//     sprite('bg2'),
+//     layer('bg2'),
+//   ]) 
+// }
+    
 
-    add([
-      sprite('bg'),
-      layer('bg'),
-//     {width: width(100),height:height(100)}
-    ])
 
     //const gameLevel = addLevel(map, levelCfg)
     const gameLevel = addLevel(maps[level], levelCfg)
@@ -174,7 +196,7 @@
       if(obj.is('sample-surprise')){
         gameLevel.spawn('$', obj.gridPos.sub(0,1))
         destroy(obj)
-        gameLevel.spawn('}', obj.gridPos.sub(0,0))
+        gameLevel.spawn('}', obj.gridPos.sub(0,0))       
       }
       if(obj.is('antidote-surprise')){
         gameLevel.spawn('#', obj.gridPos.sub(0,1))
@@ -182,6 +204,7 @@
         gameLevel.spawn('}', obj.gridPos.sub(0,0))
       }
     })
+  
 
     player.collides('antidote', (a) => {
       destroy(a)
@@ -256,23 +279,26 @@
       }
     })
 
-    const music = play("OtherworldlyFoe", { loop:true})
-    volume(0.5)
+    // const music = play('OtherworldlyFoe', { volume:(0.8), loop:true})
+
     
-    keyPress("intro", () => {
+    // music.pause();
+    // music.play();
+
+    // keyPress("intro", () => {
     
-      // pause / play music
-      if (music.paused()) {
-        music.play();
-      } else {
-        music.pause();
-      }
+    //   // pause / play music
+    //   if (music.paused()) {
+    //     music.play();
+    //   } else {
+    //     music.pause();
+    //   }
     
-      // play one off sound
-      play("OtherworldlyFoe");
+    //   // play one off sound
+    //   play("shoot");
     
-    });
-    keyPress("escape", () => music.stop());
+    // });
+  //  keyPress("escape", () => music.stop());
   })
 
   scene('lose', ({ score }) => {
