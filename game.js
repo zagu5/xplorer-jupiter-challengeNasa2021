@@ -37,8 +37,14 @@
   loadSprite('volcano', 'oo1luMh.png')
   loadSprite('move-rock', 'Gu9ddIK.png')
   loadSprite('ground-io', 'vISj75M.png')
+
+  loadSprite('ground-europa', '70F85L8.png')
+  loadSprite('bonus-europa', 'rVtIMVU.png')
+  loadSprite('rocket', '6N9x4CZ.png')
+  loadSprite('table', 'Wgmb3Y9.png')
+  loadSprite('bonus', 'tgWHCis.png')
   
- loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
+  loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
   // const music = play('OtherworldlyFoe', { volume:(0.8)})
    
   // music.pause();
@@ -79,6 +85,22 @@
       '                          !!!!                  ',
       '            ~ ~          z!!!!         ~~     + ',
       '!!!!!!!!!!!!! !!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!',
+    ],
+    [
+      '                                                ',
+      '                                                ',
+      '                                                ',
+      '                                                ',
+      '                             ?                  ',
+      '                                                ',
+      '                                                ',
+      ' &?&         && &&            /&&&&   &&     ?  ',
+      '                                                ',  
+      '                                                ',
+      '     ?&&         ?&&&&           &?&       &    ',
+      '                                                ',
+      '                                            ] [ ',
+      '&&&&&&& &&&&&&&&&&&&& &&&&&&& &&&&&&&&&&&&&&&&&&',
     ]
   ] 
     
@@ -101,7 +123,11 @@
         'z': [sprite('move-rock'), solid(), scale(0.5), 'dangerous'],
         '@': [sprite('bonus-rock'), solid(), scale(0.5), 'sample-surprise'],
         '~': [sprite('volcano'), solid(), scale(0.5)],
-
+        '&': [sprite('ground-europa'), solid(), scale(0.6)],
+        '?': [sprite('bonus-europa'), solid(), scale(0.5), 'sample-surprise'],
+        '[': [sprite('rocket'), solid(), scale(0.5), 'rocket'],
+        ']': [sprite('table'), solid(), scale(0.5), 'table'],
+        '/': [sprite('bonus'), solid(), scale(0.5), 'bonus'],
     }
     //Background de acuerdo al nivel
     if (level===0){
