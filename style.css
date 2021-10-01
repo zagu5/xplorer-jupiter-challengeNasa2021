@@ -1,12 +1,68 @@
 #root{
     display: flex;
-    flex-wrap: wrap;
+    width:100%;
 }
+
+
+/*** AQUI COMIENZA LAS INSTRUCCIONES DE LAS TARJETAS ****/
+#sidebar{
+    width:30%;
+    background: white;
+}
+
+.containerTab{
+    width: 100%;
+    display: flex;
+    /* flex-wrap: wrap;
+    justify-content: space-evenly; */
+    padding: 3%;
+    align-items: center;
+    flex-direction: column;
+    padding: 3%;
+    margin: 3%;
+}
+
+.containerDescription{
+    border-radius: 5%;
+    border: 2px solid black;
+}
+
+.playerContainer{
+    width: 50%;
+    height: auto;
+    
+}
+
+#playerAvatar img{
+    width: 100%;
+    height: auto;
+}
+
+@supports(object-fit: cover){
+    #playerAvatar img{
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        object-position: center center;
+        border-radius: 100%; 
+    }
+}
+
+/*** AQUI COMIENZA LAS TARJETAS ****/
+#game{
+    width: 70%;
+    background: red;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 3%;
+}
+
 .card-wrapper{
-    margin: 0 auto;
+    margin: 10px;
     background-color: transparent;
-    width: 230px;
-    height: 270px;
+    width: 125px;
+    height: 125px;
     border: 1px solid #f1f1f1;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
@@ -15,7 +71,6 @@
     position: relative;
     width: 100%;
     height: 100%;
-    /* text-align: center; */
     transition: transform 0.8s;
     transform-style: preserve-3d;
     transform: rotateY(0deg);
@@ -29,21 +84,30 @@
     backface-visibility: hidden;
   }
   
-  .front{
+.front{
     background-color: #bbb;
     color: black;
     text-align: center; 
-  }
+}
   
-  .back {
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(5,1fr);
-    /* grid-gap: 14px; */
+.back {
     text-align: center; 
     background-color: #305c14;
     color: white;
     transform: rotateY(180deg);
+}
+
+.back img{
+    width: 100%;
+    height: auto;
+}
+
+ @supports(object-fit: cover){
+    .back img{
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
 }
   
 .avatar{
