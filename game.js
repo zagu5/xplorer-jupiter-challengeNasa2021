@@ -1,4 +1,4 @@
-kaboom({
+  kaboom({
     global: true,
     fullscreen: true,
     scale: 1.9,
@@ -37,6 +37,8 @@ kaboom({
   loadSprite('volcano', 'oo1luMh.png')
   loadSprite('move-rock', 'Gu9ddIK.png')
   loadSprite('ground-io', 'vISj75M.png')
+  
+  loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
 
   scene ("game", ({ level, score })=> {
     layers(['bg','obj', 'ui'], 'obj')
@@ -211,6 +213,7 @@ kaboom({
     player.collides('dangerous', (d) => {
       if(isJumping){
         destroy(d)
+ //       camShake(5)
       }else {
         go('lose', {score : scoreLabel.value})
       }  
@@ -253,9 +256,29 @@ kaboom({
       }
     })
 
+    const music = play("OtherworldlyFoe", { loop:true})
+    volume(0.5)
+    
+    keyPress("intro", () => {
+    
+      // pause / play music
+      if (music.paused()) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    
+      // play one off sound
+      play("OtherworldlyFoe");
+    
+    });
+    keyPress("escape", () => music.stop());
   })
 
   scene('lose', ({ score }) => {
-    add([text(score, 32), origin('center'), pos(width()/2, height()/2)])
+    add([
+      text('GAME OVER', score, 80), 
+      origin('center'), 
+      pos(width()/2, height()/2)])
   })
   start("game", { level:0, score:0 })
