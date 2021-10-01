@@ -1,4 +1,6 @@
-import cardGame from './cardGame.js'
+import cardGame from './cardGame.js';
+import tabGame from './tabGame.js'
+
 
 const memoryGame = {
     //PARA GENERAR EL TABLERO DE JUEGO DE LAS TARJETAS
@@ -8,8 +10,11 @@ const memoryGame = {
 
     generateClicks: ()=>{
         cardGame.rotateCard();
-    }
+    },
 
+    createTabGame: () => {
+        return tabGame.conteinerTab();
+    }
 }
 
 export default memoryGame;
