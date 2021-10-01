@@ -38,20 +38,34 @@
   loadSprite('move-rock', 'Gu9ddIK.png')
   loadSprite('ground-io', 'vISj75M.png')
 
-  loadSprite('ground-europa', '70F85L8.png')
-  loadSprite('bonus-europa', 'rVtIMVU.png')
-  loadSprite('rocket', '6N9x4CZ.png')
-  loadSprite('table', 'Wgmb3Y9.png')
-  loadSprite('bonus', 'tgWHCis.png')
+  loadSprite('bg2', 'GUSBIIJ.png')
+  loadSprite('ground-europa', 'kGOrzue.png')
+  loadSprite('bonus-europa', 'FXDDBdS.png')
+  loadSprite('rocket', '4JDmKDl.png')
+  loadSprite('table', 'CsY6AjB.png')
+  loadSprite('bonus', 'z3yEoR7.png')
+  loadSprite('obstacle', 'mNFy94t.png')
+  loadSprite('sample-europa1', '5eOkZJM.png')
+  loadSprite('sample-europa2', '7uh8yFK.png')
+  loadSprite('eddy3', 'BjeV0S4.png')
   
-  loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
+  
+  // loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
   // const music = play('OtherworldlyFoe', { volume:(0.8)})
-   
+  //     keyPress("intro", () => {
+  //     // pause / play music
+  //     if (music.paused()) {
+  //       music.play();
+  //     } else {
+  //       music.pause();
+  //     }
+  //  keyPress("escape", () => music.stop());
+
   // music.pause();
   // music.play();
 
   scene ("game", ({ level, score })=> {
-    layers(['bg','bg1','obj', 'ui'], 'obj')
+    layers(['bg','bg1','bg2','obj', 'ui'], 'obj')
 
     const maps = [
     [
@@ -90,16 +104,16 @@
       '                                                ',
       '                                                ',
       '                                                ',
+      '                x            o                  ',
+      '              &&&  &         ?                  ',
       '                                                ',
-      '                             ?                  ',
-      '                                                ',
-      '                                                ',
-      ' &?&         && &&            /&&&&   &&     ?  ',
+      '         i         x        / &      o          ',
+      '      &?&&        && &&            /&&&&   &&?  ',
       '                                                ',  
-      '                                                ',
-      '     ?&&         ?&&&&           &?&       &    ',
-      '                                                ',
-      '                                            ] [ ',
+      '       o            i                           ',
+      '     ?&&         ?&&&&           &?&  ///  &  / ',
+      '                             u     u       u  [ ',
+      '        xx       u      x   u     x   uu    ]   ',
       '&&&&&&& &&&&&&&&&&&&& &&&&&&& &&&&&&&&&&&&&&&&&&',
     ]
   ] 
@@ -107,7 +121,6 @@
     const levelCfg = {
         width: 40,
         height:30,
-        'x': [sprite('bg'), solid()],
         '=': [sprite('ground-jupiter'), solid() ],
         '$': [sprite('sample'), 'sample'],
         '°': [sprite('sample1'), 'sample1'],
@@ -116,7 +129,7 @@
         '*': [sprite('bonus-nube'), solid(), 'antidote-surprise'],
         '}': [sprite('unboxed'), solid()],
         '+': [sprite('eddy'), solid(), scale(0.7), 'eddy'],
-        '-': [sprite('eddy1'), solid(), scale(0.55), 'eddy1'],
+        '-': [sprite('eddy1'), solid(), scale(0.5), 'eddy1'],
         '^': [sprite('evil-tornado'), solid(), 'dangerous'],
         '#': [sprite('antidote'), solid(), 'antidote', body()],
         '!': [sprite('ground-io'), solid(), scale(0.6)],
@@ -128,7 +141,12 @@
         '[': [sprite('rocket'), solid(), scale(0.5), 'rocket'],
         ']': [sprite('table'), solid(), scale(0.5), 'table'],
         '/': [sprite('bonus'), solid(), scale(0.5), 'bonus'],
+        'x': [sprite('obstacle'), solid(), scale(0.5), 'obstacle'],
+        'i': [sprite('sample-europa1'),'sample-europa1'],
+        'o': [sprite('sample-europa2'),'sample-europa2'],
+        'u': [sprite('eddy3'),  solid(), scale(0.9), 'dangerous'],
     }
+
     //Background de acuerdo al nivel
     if (level===0){
       add(
@@ -136,24 +154,20 @@
           sprite('bg'),
           layer('bg'),
         ])
-    }
-    if(level===1){
+    }if(level===1){
       add(
         [
         sprite('bg1'),
         layer('bg1'),
       ])  
-    } 
-// else{
-//   add(
-//     [
-//     sprite('bg2'),
-//     layer('bg2'),
-//   ]) 
-// }
+    } if(level===2){
+      add(
+        [
+        sprite('bg2'),
+        layer('bg2'),
+      ]) 
+}
     
-
-
     //const gameLevel = addLevel(map, levelCfg)
     const gameLevel = addLevel(maps[level], levelCfg)
 
@@ -304,27 +318,6 @@
         player.jump(CURRENT_JUMP_FORCE,0)
       }
     })
-
-    // const music = play('OtherworldlyFoe', { volume:(0.8), loop:true})
-
-    
-    // music.pause();
-    // music.play();
-
-    // keyPress("intro", () => {
-    
-    //   // pause / play music
-    //   if (music.paused()) {
-    //     music.play();
-    //   } else {
-    //     music.pause();
-    //   }
-    
-    //   // play one off sound
-    //   play("shoot");
-    
-    // });
-  //  keyPress("escape", () => music.stop());
   })
 
   scene('lose', ({ score }) => {
