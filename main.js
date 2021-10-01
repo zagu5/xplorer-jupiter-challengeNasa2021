@@ -5,4 +5,6 @@ window.addEventListener('load', () => {
     content.innerHTML = memoryGame.createBoard().join(" ");
     memoryGame.generateClicks();
 });
+
+
   

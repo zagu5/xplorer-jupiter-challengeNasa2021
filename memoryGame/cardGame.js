@@ -33,9 +33,13 @@ const cardGame = {
     generateCards: ()=>{
         
         let cards = [];
+        `<div class='btnPlay'>
+        <button type="" id="btnPlay">PLAY</button>
+    </div>`
         for (let i = 0; i < 24; i++) {
             cards.push(`
             <!-- Rotating card -->
+            
             <div class="card-wrapper">
                 <div id="card${i}" class="card" >
             
