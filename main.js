@@ -3,12 +3,15 @@ const game = document.getElementById('game');
 const sidebar = document.getElementById('sidebar');
 
 import memoryGame from '../memoryGame/memoryGame.js'
+import data from "../memoryGame/data.js"
+
 
 window.addEventListener('load', () => {
-    game.innerHTML = memoryGame.createBoard().join(" ");
+    sidebar.innerHTML = memoryGame.createTabGame(data);
+    memoryGame.btnPlay();
+    game.innerHTML = memoryGame.createBoard(data).join(" ");
     memoryGame.generateClicks();
     
-    sidebar.innerHTML = memoryGame.createTabGame();
-    memoryGame.btnPlay();
+    
 });
 

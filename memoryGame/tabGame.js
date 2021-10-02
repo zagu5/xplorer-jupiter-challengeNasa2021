@@ -1,19 +1,13 @@
-import data from "../memoryGame/data.js"
-
-const tab = {
+const tabGame = {
     
-    arrayData: data,
-    
-    containerTab: () =>{
+    containerTab: (data) =>{
         
         const items =[];
         
-        tab.arrayData.map((item)=>{
-            items.push(`<p>${item.name}</p>`)
-        })
+        data.map((item)=>{
+            items.push(`<p class="jupiterElements" data-name="${item.name}">${item.name}</p>`)
+        });
         
-        // console.log(tab.arrayData)
-        // ${items.join(" ")}
         return `
             <div class="containerTab">
                 <div class="playerContainer">
@@ -25,9 +19,9 @@ const tab = {
 
                 <div class="containerDescription">
                     <div>
-                        <h3>TARJETAS EXPLORATIVAS</h3>
+                        <h3>ELEMENTOS DEL PLANETA JUPITER</h3>
                         <div class="cardOptions">
-                        
+                            ${items.join(" ")}
                         </div>
                     </div>
                 
@@ -52,4 +46,4 @@ const tab = {
 
 };
 
-export default tab;
+export default tabGame;

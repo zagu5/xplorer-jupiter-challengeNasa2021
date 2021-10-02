@@ -48,6 +48,18 @@
     }
 }
 
+.cardOptions{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.cardOptions p{
+    width: 100px;
+    color: red;
+
+}
+
 /*** AQUI COMIENZA LAS TARJETAS ****/
 #game{
     width: 70%;
