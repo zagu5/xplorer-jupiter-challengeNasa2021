@@ -4,7 +4,7 @@ const tab = {
     
     arrayData: data,
     
-    conteinerTab: () =>{
+    containerTab: () =>{
         
         const items =[];
         
@@ -37,10 +37,13 @@ const tab = {
                     </div>
 
                     <div class="timeContainer">
-                        <p>00:00</p>
+                    <p>
+                    <span id="minutes">00</span>:
+                    <span id="seconds">00</span>
+                    </p>
                     </div>
 
-                    <button>PLAY</button>
+                    <button id="btnplay">PLAY</button>
                 </div>
 
             </div>

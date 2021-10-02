@@ -1,15 +1,13 @@
-import cardGame from './cardGame.js';
-import tabGame from './tabGame.js'
-
+import cardGame from './cardGame.js'
+import {autoPlay} from './playTime.js'
+import tab from './tabGame.js'
 
 const memoryGame = {
 
   
     //PARA GENERAR EL TABLERO DE JUEGO DE LAS TARJETAS
     createBoard: () => {
-      `<div class='btnPlay'>
-      <button type="" id="btnPlay">PLAY</button>
-  </div>`
+  
       return cardGame.generateCards().sort(() => Math.random() - 0.5);
     },
 
@@ -18,8 +16,14 @@ const memoryGame = {
     },
 
     createTabGame: () => {
-        return tabGame.conteinerTab();
+      return tab.containerTab();
+  },
+
+
+    btnPlay: () => {
+      autoPlay();
     }
+
 }
 
 export default memoryGame;
