@@ -27,7 +27,8 @@ const tabGame = {
                 
                     <div class="containerHits">
                         <label>ACIERTOS</label>
-                        <label>0</label>
+                        <label id="score">0</label>
+                        <label>/12</label>
                     </div>
 
                     <div class="timeContainer">

@@ -7,11 +7,14 @@ import data from "../memoryGame/data.js"
 
 
 window.addEventListener('load', () => {
+    // let startGame = false;
     sidebar.innerHTML = memoryGame.createTabGame(data);
-    memoryGame.btnPlay();
     game.innerHTML = memoryGame.createBoard(data).join(" ");
-    memoryGame.generateClicks();
-    
-    
+    memoryGame.btnPlay();
+
+    // if(startGame){
+    //     // memoryGame.generateClicks();
+    // }
+
 });
 
