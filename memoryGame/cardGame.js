@@ -1,14 +1,11 @@
-
-import data from "../memoryGame/data.js"
-
 const cardGame = {
 
-    arrayDataCard: data,
     
     selections : [],
-
-    generateCards: ()=>{
+    
+    generateCards: (data)=>{
         
+        const arrayDataCard= data
         let cards = [];
         for (let i = 0; i < 24; i++) {
             cards.push(`
@@ -27,9 +24,9 @@ const cardGame = {
                     <!-- Front Side -->
                     
                     <!-- Back Side -->
-                    <div id="back${i}" class="face back">
+                    <div id="back${i}" class="face back" data-name="${arrayDataCard[0].name}">
                             <!-- Content -->
-                            <img src="${cardGame.arrayDataCard[0].url}">
+                            <img src="${arrayDataCard[0].url}">
                         </div>
                     </div>
                     <!-- Back Side -->
@@ -39,7 +36,7 @@ const cardGame = {
             <!-- Rotating card -->
             `)
             if (i % 2 == 1) {
-                cardGame.arrayDataCard.splice(0, 1)
+                arrayDataCard.splice(0, 1)
             }
         }//END FOR
         
@@ -72,13 +69,19 @@ const cardGame = {
                 tarjeta1.style.transform = "rotateY(0deg)"
                 tarjeta2.style.transform = "rotateY(0deg)"
             }else{
-                backCard1.style.background = "plum"
-                backCard2.style.background = "plum"
+                backCard1.style.background = "plum";
+                backCard2.style.background = "plum";
+                const elementsNameJupiter = backCard2.dataset.name;
+                const jupiterElements = document.getElementsByClassName("jupiterElements");
+                console.log(jupiterElements)
+                Array.from(jupiterElements).map(pos=>{
+                    if(pos.dataset.name === elementsNameJupiter){
+                        pos.style.color = "green";
+                    }
+                })
             }
         }, 1000);
     }
-
-
 };
 
 export default cardGame;
