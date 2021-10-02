@@ -33,10 +33,11 @@
   loadSprite('eddy1', 'JMqD5NC.png')
 
   loadSprite('bg1', 'rIdnjt2.png')
-  loadSprite('bonus-rock', 'W35gFkK.png')
+  loadSprite('bonus-rock', '41qL8sU.png')
   loadSprite('volcano', 'oo1luMh.png')
   loadSprite('move-rock', 'Gu9ddIK.png')
   loadSprite('ground-io', 'vISj75M.png')
+  loadSprite('unboxed1', '7WEgVp4.png')
 
   loadSprite('bg2', 'GUSBIIJ.png')
   loadSprite('ground-europa', 'kGOrzue.png')
@@ -49,21 +50,6 @@
   loadSprite('sample-europa2', '7uh8yFK.png')
   loadSprite('eddy3', 'BjeV0S4.png')
   
-  
-  // loadSound('OtherworldlyFoe', './sounds/OtherworldlyFoe.mp3');
-  // const music = play('OtherworldlyFoe', { volume:(0.8)})
-  //     keyPress("intro", () => {
-  //     // pause / play music
-  //     if (music.paused()) {
-  //       music.play();
-  //     } else {
-  //       music.pause();
-  //     }
-  //  keyPress("escape", () => music.stop());
-
-  // music.pause();
-  // music.play();
-
   scene ("game", ({ level, score })=> {
     layers(['bg','bg1','bg2','obj', 'ui'], 'obj')
 
@@ -72,47 +58,47 @@
       '                                                ',
       '                                                ',
       '                                                ',
-      '                                                ',
-      '           °                                    ',
-      '          ===                   °               ',
-      '                ===             =               ',
+      '       |$               $$$                     ',
+      '   |       °                                    ',
+      '   =  ==  ===                   °        °      ',
+      '                ===          |  =               ',
       '                             =     =            ',
-      '                      = %=                      ',  
-      '   *  %%                                    |   ',
-      '                                           ==   ',
-      '                                         ==== + ',
-      '          ^  -     ^-          ^     - ======   ',
+      '                   °$   %=                      ',  
+      '   * %%                                      |  ',
+      '               °                           ==   ',
+      '     $$                                 |==== + ',
+      '          ^  -     ^-          ^ ^   - ======   ',
       '===========  ===================================',
-    ],
+    ],  
     [
       '                                                ',
       '                                                ',
       '                                                ',
       '                                                ',
-      '           |                                    ',
-      '          !!!                                 ° ',
-      '                                            !!! ',
-      '                                                ',
-      '                                         !!!    ',  
-      '   !!! @ !                                      ',
-      '                          !!!!     !!@          ',
-      '                          !!!!                  ',
-      '            ~ ~          z!!!!         ~~     + ',
+      '                                           °    ',
+      '                                          !!!   ',
+      '              |                                 ',
+      '            !!!                                 ',
+      '                      !!               !!!      ',  
+      '   s !                           !!@            ',
+      '                            !!                  ',
+      '                            !!                 +',
+      '            ~ ~            z!!        z~~     z ',
       '!!!!!!!!!!!!! !!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!',
     ],
     [
       '                                                ',
-      '                                                ',
-      '                                                ',
-      '                x            o                  ',
+      '                                        u       ',
+      '                                    u           ',
+      '                x            o    uu           u',
       '              &&&  &         ?                  ',
-      '                                                ',
-      '         i         x        / &      o          ',
+      '                                  u            u',
+      '         i         x        / &      o   u      ',
       '      &?&&        && &&            /&&&&   &&?  ',
-      '                                                ',  
-      '       o            i                           ',
-      '     ?&&         ?&&&&           &?&  ///  &  / ',
-      '                             u     u       u  [ ',
+      '                            u                u  ',
+      '       o    u       i                         /u',
+      '     ?&&         ?&&&&           &?&  ///  &  [ ',
+      '        u                                  u    ',
       '        xx       u      x   u     x   uu    ]   ',
       '&&&&&&& &&&&&&&&&&&&& &&&&&&& &&&&&&&&&&&&&&&&&&',
     ]
@@ -133,9 +119,11 @@
         '^': [sprite('evil-tornado'), solid(), 'dangerous'],
         '#': [sprite('antidote'), solid(), 'antidote', body()],
         '!': [sprite('ground-io'), solid(), scale(0.6)],
-        'z': [sprite('move-rock'), solid(), scale(0.5), 'dangerous'],
-        '@': [sprite('bonus-rock'), solid(), scale(0.5), 'sample-surprise'],
-        '~': [sprite('volcano'), solid(), scale(0.5)],
+        'z': [sprite('move-rock'), solid(), scale(0.7), 'dangerous'],
+        '@': [sprite('bonus-rock'), solid(), 'sample-surprise1'],
+        's': [sprite('bonus-rock'), solid(), 'antidote-surprise1'],
+        'S': [sprite('unboxed1'), solid()],
+        '~': [sprite('volcano'), solid(), scale(0.7)],
         '&': [sprite('ground-europa'), solid(), scale(0.6)],
         '?': [sprite('bonus-europa'), solid(), scale(0.5), 'sample-surprise'],
         '[': [sprite('rocket'), solid(), scale(0.5), 'rocket'],
@@ -167,19 +155,23 @@
         layer('bg2'),
       ]) 
 }
-    
-    //const gameLevel = addLevel(map, levelCfg)
-    const gameLevel = addLevel(maps[level], levelCfg)
 
-    const scoreLabel = add([
+    const gameLevel = addLevel(maps[level], levelCfg)
+     
+    const scoreLabel = 
+    add([
       text(score),
-      pos(30,6),
+      pos(110,30),
       layer('ui'),
       {
         value: score,
       }
     ])
-
+    add([
+      text('specimen'),
+      pos(40,30)
+    ])
+    
     scoreLabel.action(()=>{
       camPos(player.pos)
     })
@@ -243,6 +235,16 @@
         destroy(obj)
         gameLevel.spawn('}', obj.gridPos.sub(0,0))
       }
+      if(obj.is('sample-surprise1')){
+        gameLevel.spawn('$', obj.gridPos.sub(0,1))
+        destroy(obj)
+        gameLevel.spawn('S', obj.gridPos.sub(0,0))       
+      }
+      if(obj.is('antidote-surprise1')){
+        gameLevel.spawn('#', obj.gridPos.sub(0,1))
+        destroy(obj)
+        gameLevel.spawn('S', obj.gridPos.sub(0,0))
+      }
     })
   
 
@@ -298,6 +300,10 @@
       })
     })
 
+    player.collides('rocket', () => {
+      go('missionComplete', { score: scoreLabel.value });
+    });
+  
     keyDown('left', () =>{
       player.move(-MOVE_SPEED,0)
     })
@@ -322,8 +328,34 @@
 
   scene('lose', ({ score }) => {
     add([
-      text('GAME OVER', score, 80), 
-      origin('center'), 
-      pos(width()/2, height()/2)])
+      text('GAME OVER', 40),
+      origin('center'),
+      pos(width() / 2, height() / 2)]);
+  
+    add([
+      text(score, 50),
+      origin('center'),
+      pos(width() / 2, height() / 1.5)])
   })
+  
+  scene('missionComplete', ({ score }) => {
+    add([
+      text('Mission Complete!!!', score, 40),
+      origin('center'),
+      pos(width() / 2, height() / 2)
+    ])
+  
+    add([
+      text(score, 50),
+      origin('center'),
+      pos(width() / 2, height() / 1.5)
+    ])
+  
+    add([
+      text('Dato centifico'),
+      origin('center'),
+      pos(width() / 2, height() / 1.2)
+    ])
+  })
+  
   start("game", { level:0, score:0 })
