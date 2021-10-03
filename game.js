@@ -36,9 +36,9 @@
 
   loadSprite('bg1', 'rIdnjt2.png')
   loadSprite('bonus-rock', '41qL8sU.png')
-  loadSprite('volcano', 'oo1luMh.png')
+  loadSprite('volcano', 'FW0YGIx.png')
   loadSprite('move-rock', 'Gu9ddIK.png')
-  loadSprite('ground-io', 'vISj75M.png')
+  loadSprite('ground-io', '7WEgVp4.png')
   loadSprite('unboxed1', '7WEgVp4.png')
 
   loadSprite('bg2', 'GUSBIIJ.png')
