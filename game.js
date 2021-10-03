@@ -16,16 +16,18 @@
 
   // Game logic
   let isJumping = true
-  
+ // loadSound("music", "sounds/music.mp3")
+
   loadRoot('https://i.imgur.com/')
   loadSprite('bg', 'qKona0S.png')
+  loadSprite('astronaut', 'tdwbmn9.png')
+  loadSprite('robot', 'N1nHx2C.png')
   loadSprite('sample', 'v93pgWa.png')
   loadSprite('sample1', 'NSsPkw0.png')
   loadSprite('sample2', 'KoSieLh.png')
   loadSprite('evil-tornado', 'zKC6rax.png')
   loadSprite('brick', 'pogC9x5.png')
   loadSprite('ground-jupiter', '2DrrRXW.png')
-  loadSprite('astronaut', 'tdwbmn9.png')
   loadSprite('antidote', 'D5C793q.png')
   loadSprite('bonus-nube', '5AuICN1.png')
   loadSprite('unboxed', 'No8gXSw.png')
@@ -46,12 +48,13 @@
   loadSprite('table', 'CsY6AjB.png')
   loadSprite('bonus', 'z3yEoR7.png')
   loadSprite('obstacle', 'mNFy94t.png')
-  loadSprite('sample-europa1', '5eOkZJM.png')
-  loadSprite('sample-europa2', '7uh8yFK.png')
+  loadSprite('sample3', '5eOkZJM.png')
+  loadSprite('sample4', '7uh8yFK.png')
   loadSprite('eddy3', 'BjeV0S4.png')
-  
+ 
   scene ("game", ({ level, score })=> {
     layers(['bg','bg1','bg2','obj', 'ui'], 'obj')
+
 
     const maps = [
     [
@@ -78,9 +81,9 @@
       '                                           °    ',
       '                                          !!!   ',
       '              |                                 ',
-      '            !!!                                 ',
-      '                      !!               !!!      ',  
-      '   s !                           !!@            ',
+      '            !!!        °                        ',
+      '        !             !!               !!!      ',  
+      '   s!!                           !!@            ',
       '                            !!                  ',
       '                            !!                 +',
       '            ~ ~            z!!        z~~     z ',
@@ -88,18 +91,18 @@
     ],
     [
       '                                                ',
-      '                                        u       ',
-      '                                    u           ',
-      '                x            o    uu           u',
+      '                                                ',
+      '                                                ',
+      '                x            o                  ',
       '              &&&  &         ?                  ',
-      '                                  u            u',
+      '                                                ',
       '         i         x        / &      o   u      ',
       '      &?&&        && &&            /&&&&   &&?  ',
-      '                            u                u  ',
-      '       o    u       i                         /u',
-      '     ?&&         ?&&&&           &?&  ///  &  [ ',
-      '        u                                  u    ',
-      '        xx       u      x   u     x   uu    ]   ',
+      '                                                ',
+      '       o            i                         / ',
+      '     b&&         ?&&&&           &?&  ///  &  [ ',
+      '        u                                       ',
+      '        xx              x         x         ]   ',
       '&&&&&&& &&&&&&&&&&&&& &&&&&&& &&&&&&&&&&&&&&&&&&',
     ]
   ] 
@@ -125,13 +128,14 @@
         'S': [sprite('unboxed1'), solid()],
         '~': [sprite('volcano'), solid(), scale(0.7)],
         '&': [sprite('ground-europa'), solid(), scale(0.6)],
-        '?': [sprite('bonus-europa'), solid(), scale(0.5), 'sample-surprise'],
+        'b': [sprite('bonus-europa'), solid(), scale(0.5),'antidote-surprise2'],
+        '?': [sprite('bonus-europa'), solid(), scale(0.5), 'sample-surprise2'],
         '[': [sprite('rocket'), solid(), scale(0.5), 'rocket'],
         ']': [sprite('table'), solid(), scale(0.5), 'table'],
         '/': [sprite('bonus'), solid(), scale(0.5), 'bonus'],
         'x': [sprite('obstacle'), solid(), scale(0.5), 'obstacle'],
-        'i': [sprite('sample-europa1'),'sample-europa1'],
-        'o': [sprite('sample-europa2'),'sample-europa2'],
+        'i': [sprite('sample3'),'sample3'],
+        'o': [sprite('sample4'),'sample4'],
         'u': [sprite('eddy3'),  solid(), scale(0.9), 'dangerous'],
     }
 
@@ -141,19 +145,31 @@
           [
           sprite('bg'),
           layer('bg'),
-        ])
+        ]),
+        add([
+          text("¡¡¡Welcome to Jupiter!!!"),
+          pos(20, 20),
+        ]);
     }if(level===1){
       add(
         [
         sprite('bg1'),
         layer('bg1'),
-      ])  
+      ]),
+      add([
+        text("¡¡¡Welcome to Jupiter's moon IO.!!!"),
+        pos(20, 20),
+      ]);  
     } if(level===2){
       add(
         [
         sprite('bg2'),
         layer('bg2'),
-      ]) 
+      ]),
+      add([
+        text("¡¡¡Welcome to Jupiter's moon Europa.!!!"),
+        pos(20, 20),
+      ]); 
 }
 
     const gameLevel = addLevel(maps[level], levelCfg)
@@ -161,24 +177,22 @@
     const scoreLabel = 
     add([
       text(score),
-      pos(110,30),
+      pos(1900,200),
+      //fixed(),
       layer('ui'),
       {
         value: score,
       }
     ])
     add([
-      text('specimen'),
-      pos(40,30)
+      text('muestras: '),
+      pos(1800,200)
     ])
     
-    scoreLabel.action(()=>{
-      camPos(player.pos)
-    })
-
     add([
-      text('level' + parseInt(level + 1)), pos(40,6)
+      text('level: ' + parseInt(level + 1)), pos(40,6)
     ])
+
 
     function big(){
       let timer = 0
@@ -212,14 +226,22 @@
     }
 
     const player = add([
-        sprite('astronaut'), 
-        solid(), 
-        pos(50,0),
-        body(),
-        big(),
-        origin('bot')        
-    ])
+      sprite("astronaut"),
+      pos(100, 200),
+      solid(),
+      body(),
+      scale(1),
+      rotate(0),
+      big(),
+      origin("bot"),
+  ]);
+  
+  
+  player.action(() => {
+      player.resolve();
+  });
 
+  
     action('antidote', (a) => {
       a.move(20,0)
     })
@@ -244,6 +266,16 @@
         gameLevel.spawn('#', obj.gridPos.sub(0,1))
         destroy(obj)
         gameLevel.spawn('S', obj.gridPos.sub(0,0))
+      }
+      if(obj.is('sample-surprise2')){
+        gameLevel.spawn('$', obj.gridPos.sub(0,1))
+        destroy(obj)
+        gameLevel.spawn('/', obj.gridPos.sub(0,0))       
+      }
+      if(obj.is('antidote-surprise2')){
+        gameLevel.spawn('#', obj.gridPos.sub(0,1))
+        destroy(obj)
+        gameLevel.spawn('/', obj.gridPos.sub(0,0))
       }
     })
   
@@ -271,6 +303,17 @@
       scoreLabel.text = scoreLabel.value
     })
 
+    player.collides('sample3', (s) => {
+      destroy(s)
+      scoreLabel.value++
+      scoreLabel.text = scoreLabel.value
+    })
+
+    player.collides('sample4', (s) => {
+      destroy(s)
+      scoreLabel.value++
+      scoreLabel.text = scoreLabel.value
+    })
     action('dangerous', (d) => {
       d.move(-ENEMY_SPEED,0)
     })
@@ -324,18 +367,23 @@
         player.jump(CURRENT_JUMP_FORCE,0)
       }
     })
-  })
+ })
 
   scene('lose', ({ score }) => {
     add([
-      text('GAME OVER', 40),
+      text('GAME OVER', 30),
       origin('center'),
-      pos(width() / 2, height() / 2)]);
+      pos(width() / 2, height() / 2),
+    ])
   
     add([
-      text(score, 50),
+      text(score, 30),
       origin('center'),
       pos(width() / 2, height() / 1.5)])
+    
+    keyPress("enter", () => 
+    go("game", ({ level:0, score:0 })))
+
   })
   
   scene('missionComplete', ({ score }) => {
@@ -350,12 +398,42 @@
       origin('center'),
       pos(width() / 2, height() / 1.5)
     ])
-  
+
     add([
-      text('Dato centifico'),
+      text("Press space to view scientific data"),
       origin('center'),
       pos(width() / 2, height() / 1.2)
-    ])
-  })
+    ]);
   
+    keyPress("space", () => {
+      go("data", ~~rand(100));
+    });
+  })
+
+  scene("data", () => {
+    add([
+      text("scientific data: ....Did you know that?..." ),
+      pos(100,20)
+    ]);
+    keyPress("enter", () => 
+    go("game", ({ level:0, score:0 })))
+
+    const k = add([
+      sprite("evil-tornado"),
+      pos(40,70),
+      scale(2),
+      rotate(0),
+      origin("center"),
+    ]);
+     
+    k.action(() => {
+      k.scale = wave(-1, 1, time());
+      k.angle = time() * 10;
+    });
+  
+  });
+
   start("game", { level:0, score:0 })
+
+  // const music = play("music");
+  // music.loop()
