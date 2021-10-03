@@ -51,9 +51,10 @@
   loadSprite('sample3', '5eOkZJM.png')
   loadSprite('sample4', '7uh8yFK.png')
   loadSprite('eddy3', 'BjeV0S4.png')
+  loadSprite('bg3', 'eSXHRvn.jpg')
  
   scene ("game", ({ level, score })=> {
-    layers(['bg','bg1','bg2','obj', 'ui'], 'obj')
+    layers(['bg','bg1','bg2','bg3','obj', 'ui'], 'obj')
 
 
     const maps = [
@@ -68,9 +69,9 @@
       '                             =     =            ',
       '                   °$   %=                      ',  
       '   * %%                                      |  ',
-      '               °                           ==   ',
+      '               °                         ^ ==   ',
       '     $$                                 |==== + ',
-      '          ^  -     ^-          ^ ^   - ======   ',
+      '          ^  -     ^-     ^      ^   - ======   ',
       '===========  ===================================',
     ],  
     [
@@ -78,13 +79,13 @@
       '                                                ',
       '                                                ',
       '                                                ',
-      '                                           °    ',
-      '                                          !!!   ',
+      '                                            °   ',
+      '                                       z @  !!  ',
       '              |                                 ',
       '            !!!        °                        ',
-      '        !             !!               !!!      ',  
+      '        !             !!        z      !!!      ',  
       '   s!!                           !!@            ',
-      '                            !!                  ',
+      '          °                 !!                  ',
       '                            !!                 +',
       '            ~ ~            z!!        z~~     z ',
       '!!!!!!!!!!!!! !!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!',
@@ -92,17 +93,17 @@
     [
       '                                                ',
       '                                                ',
-      '                                                ',
-      '                x            o                  ',
-      '              &&&  &         ?                  ',
-      '                                                ',
+      '                                          u     ',
+      '                x            o      u           ',
+      '              &&&  /         ?                  ',
+      '      u                                         ',
       '         i         x        / &      o   u      ',
       '      &?&&        && &&            /&&&&   &&?  ',
-      '                                                ',
-      '       o            i                         / ',
+      '                             u                  ',
+      '       o    u       i                         / ',
       '     b&&         ?&&&&           &?&  ///  &  [ ',
       '        u                                       ',
-      '        xx              x         x         ]   ',
+      '        x        x     x u       xu         ]   ',
       '&&&&&&& &&&&&&&&&&&&& &&&&&&& &&&&&&&&&&&&&&&&&&',
     ]
   ] 
@@ -139,7 +140,7 @@
         'u': [sprite('eddy3'),  solid(), scale(0.9), 'dangerous'],
     }
 
-    //Background de acuerdo al nivel
+    //Backgrounds
     if (level===0){
       add(
           [
@@ -411,25 +412,41 @@
   })
 
   scene("data", () => {
+    add(
+      [
+      sprite('bg3'),
+      layer('bg3'),
+    ]),
     add([
       text("scientific data: ....Did you know that?..." ),
-      pos(100,20)
+     // origin(center),
+      pos(100,50),   
+         
     ]);
-    keyPress("enter", () => 
-    go("game", ({ level:0, score:0 })))
-
+    
     const k = add([
       sprite("evil-tornado"),
-      pos(40,70),
+      //pos(40,70),
+      pos(width() / 2, height() / 2),
       scale(2),
       rotate(0),
-      origin("center"),
+      //origin("center"),
     ]);
      
     k.action(() => {
       k.scale = wave(-1, 1, time());
       k.angle = time() * 10;
     });
+
+    add([
+      text("https://spaceplace.nasa.gov/all-about-jupiter/sp/" ),
+      //origin(center) 
+      pos(100,70),
+           
+    ]);
+
+    keyPress("enter", () => 
+    go("game", ({ level:0, score:0 })))
   
   });
 
