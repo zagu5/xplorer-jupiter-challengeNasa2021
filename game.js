@@ -34,12 +34,12 @@
   loadSprite('eddy', 'YEaSi0t.png')
   loadSprite('eddy1', 'JMqD5NC.png')
 
-  loadSprite('bg1', 'rIdnjt2.png')
+  loadSprite('bg1', '9G6Te5t.png')
   loadSprite('bonus-rock', '41qL8sU.png')
   loadSprite('volcano', 'FW0YGIx.png')
   loadSprite('move-rock', 'Gu9ddIK.png')
-  loadSprite('ground-io', '7WEgVp4.png')
-  loadSprite('unboxed1', '7WEgVp4.png')
+  loadSprite('ground-io', 'ANZRLhm.png')
+  loadSprite('unboxed1', 'ANZRLhm.png')
 
   loadSprite('bg2', 'GUSBIIJ.png')
   loadSprite('ground-europa', 'kGOrzue.png')
@@ -126,7 +126,7 @@
         'z': [sprite('move-rock'), solid(), scale(0.7), 'dangerous'],
         '@': [sprite('bonus-rock'), solid(), 'sample-surprise1'],
         's': [sprite('bonus-rock'), solid(), 'antidote-surprise1'],
-        'S': [sprite('unboxed1'), solid()],
+        'S': [sprite('unboxed1'), solid(), scale(0.6)],
         '~': [sprite('volcano'), solid(), scale(0.7)],
         '&': [sprite('ground-europa'), solid(), scale(0.6)],
         'b': [sprite('bonus-europa'), solid(), scale(0.5),'antidote-surprise2'],
